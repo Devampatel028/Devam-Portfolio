@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix UI | Devam Patel</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    
+    <!-- Specific Project Styles -->
+    <style>
+        body {
+            background-color: #0f172a; /* Slate 900 */
+            color: #f8fafc;
+        }
+
+        /* Nav Overrides */
+        nav {
+            background: rgba(15, 23, 42, 0.8) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Split Layout Container */
+        .project-details-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .back-link {
+            color: #94a3b8;
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.3s;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            color: #f8fafc;
+        }
+
+        /* Top Section: Carousel Left, Info Right */
+        .top-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        @media (max-width: 900px) {
+            .top-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Carousel inside Top Section */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            background: #000;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        @media (max-width: 900px) {
+            .carousel-container {
+                height: 300px;
+            }
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .carousel-slide img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Lightbox Styles */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+        }
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease;
+        }
+        #lightbox .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        #lightbox .close-btn:hover {
+            color: var(--accent-light);
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .indicator.active {
+            background: #e50914; /* Netflix Red */
+        }
+
+        /* Right Side Info */
+        .project-category {
+            color: #e50914; /* Netflix Red */
+            font-family: var(--font-mono);
+            font-size: var(--fs-sm);
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .project-title {
+            font-size: 3rem;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .project-short-desc {
+            font-size: 1.15rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .tech-badges span {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-live {
+            background: #fff;
+            color: #0f172a;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-live:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+        }
+
+        .btn-source {
+            background: transparent;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+        .btn-source:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Bottom Section: Overview Left, Features Right */
+        .bottom-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        @media (max-width: 900px) {
+            .bottom-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .overview-box {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .overview-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            bottom: 5px;
+            width: 3px;
+            background: #e50914; /* Netflix Red */
+            border-radius: 2px;
+        }
+
+        .section-heading {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .overview-box p {
+            color: #94a3b8;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .features-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-icon {
+            color: #e50914; /* Netflix Red */
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        .feature-item span:last-child {
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar glass-nav">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">
+                Devam<span class="logo-dot">.</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="project-details-container">
+        
+        <!-- Back Link -->
+        <div>
+            <a href="projects.html" class="back-link">&larr; Back to Projects</a>
+        </div>
+
+        <!-- Top Section -->
+        <div class="top-section">
+            
+            <!-- Left: Image Carousel -->
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="../assets/projects/streamflix/streamflix-1.png" alt="StreamFlix Screenshot 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../assets/projects/streamflix/streamflix-2.png" alt="StreamFlix Screenshot 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../assets/projects/streamflix/streamflix-3.png" alt="StreamFlix Screenshot 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../assets/projects/streamflix/streamflix-4.png" alt="StreamFlix Screenshot 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="../assets/projects/streamflix/streamflix-1.png" alt="StreamFlix Screenshot 5">
+                </div>
+
+                <!-- Indicators -->
+                <div class="carousel-indicators">
+                    <div class="indicator active" onclick="goToSlide(0)"></div>
+                    <div class="indicator" onclick="goToSlide(1)"></div>
+                    <div class="indicator" onclick="goToSlide(2)"></div>
+                    <div class="indicator" onclick="goToSlide(3)"></div>
+                    <div class="indicator" onclick="goToSlide(4)"></div>
+                </div>
+            </div>
+
+            <!-- Right: Project Info -->
+            <div class="project-info-box">
+                <span class="project-category">Streaming Platform</span>
+                <h1 class="project-title">StreamFlix UI</h1>
+                <p class="project-short-desc">
+                    A Netflix-inspired multi-page responsive streaming platform interface featuring pixel-perfect components, seamless navigation, and engaging hero sections built strictly with HTML, CSS, and JS.
+                </p>
+
+                <!-- Tech Badges -->
+                <div class="tech-badges">
+                    <span>HTML5</span>
+                    <span>CSS3</span>
+                    <span>JavaScript</span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn-live">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        Live Demo
+                    </a>
+                    <a href="#" class="btn-source">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                        Source Code
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="bottom-section">
+            
+            <!-- Left: Overview -->
+            <div class="overview-box">
+                <h2 class="section-heading">Overview</h2>
+                <p>
+                    StreamFlix is a front-end streaming application UI crafted to closely mirror Netflix's user experience. It demonstrates a deep understanding of complex layouts, styling, and cross-device responsiveness without relying on modern component frameworks.
+                </p>
+                <p>
+                    The project includes a robust landing page with an email signup flow, fully styled "Trending Now" carousel rows, structured footer layouts, and custom hover states. It prioritizes semantic HTML and scalable CSS methodologies.
+                </p>
+            </div>
+
+            <!-- Right: Key Features -->
+            <div class="features-card">
+                <h2 class="section-heading">Key Features</h2>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>High-fidelity Netflix UI clone</span>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Responsive layout across mobile, tablet, and desktop</span>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Interactive movie carousels and smooth hover effects</span>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <span class="feature-icon">✓</span>
+                        <span>Semantic HTML structure for accessibility and SEO</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-img" src="" alt="Enlarged View">
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/particles.js"></script>
+    <script src="../js/cursor.js"></script>
+    <script>
+        // Carousel Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const totalSlides = slides.length;
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(ind => ind.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % totalSlides;
+            showSlide(nextIndex);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+            resetInterval();
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            // Change every 4.5 seconds
+            slideInterval = setInterval(nextSlide, 4500); 
+        }
+
+        // Initialize Auto Carousel
+        resetInterval();
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.close-btn');
+
+        document.querySelectorAll('.carousel-slide img').forEach(img => {
+            img.addEventListener('click', (e) => {
+                lightboxImg.src = e.target.src;
+                lightbox.style.display = 'flex';
+                // Stop auto carousel when viewing
+                clearInterval(slideInterval);
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.style.display = 'none';
+            resetInterval(); // resume carousel
+        };
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>

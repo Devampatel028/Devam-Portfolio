@@ -1,0 +1,203 @@
+/* ═══════════════════════════════════════════
+   LAYOUT — Container, Section, Grid
+   ═══════════════════════════════════════════ */
+
+.container {
+    width: 100%;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+section {
+    padding: var(--space-4xl) 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Section Title ── */
+.section-title {
+    font-size: var(--fs-3xl);
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+    position: relative;
+    color: var(--text-primary);
+}
+
+.section-title .title-number {
+    font-family: var(--font-mono);
+    font-size: var(--fs-md);
+    color: var(--accent);
+    display: block;
+    margin-bottom: var(--space-sm);
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-accent);
+    margin: var(--space-md) auto 0;
+    border-radius: var(--radius-full);
+}
+
+/* ── Header / Nav ── */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(5, 13, 26, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
+}
+
+header.scrolled {
+    background: rgba(5, 13, 26, 0.95);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--nav-height);
+}
+
+/* Logo */
+.logo, .footer-logo {
+    font-size: var(--fs-xl);
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.logo:hover, .footer-logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-dot {
+    color: var(--accent);
+}
+
+/* Nav Links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.nav-links a {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+    position: relative;
+    padding: var(--space-xs) 0;
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-accent);
+    border-radius: var(--radius-full);
+    transition: width var(--duration-normal) var(--ease-out);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-light);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* Nav CTA button */
+.nav-cta {
+    background: var(--accent-subtle);
+    border: 1px solid var(--border-card) !important;
+    padding: var(--space-sm) var(--space-lg) !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+.nav-cta:hover {
+    background: var(--accent-glow) !important;
+    border-color: var(--accent) !important;
+}
+
+.nav-cta::after {
+    display: none !important;
+}
+
+/* Hamburger */
+.menu-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    z-index: 1001;
+}
+
+.hamburger-line {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: var(--radius-full);
+    transition: all var(--duration-normal) var(--ease-out);
+    transform-origin: center;
+}
+
+.menu-btn.active .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-btn.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.menu-btn.active .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Footer ── */
+footer {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid var(--border-subtle);
+    background: rgba(5, 13, 26, 0.5);
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.footer-text {
+    font-size: var(--fs-sm);
+    color: var(--text-secondary);
+}
+
+.footer-copy {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}

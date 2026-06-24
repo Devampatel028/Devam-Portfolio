@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Devam Patel — Full Stack Developer. View all my projects here.">
+    <title>All Projects | Devam Patel</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/sections.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        /* Specific tweaks for standalone projects page */
+        #projects {
+            padding-top: 150px;
+            min-height: 100vh;
+        }
+        .projects-grid {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ══════════ PARTICLE CANVAS ══════════ -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- ══════════ CUSTOM CURSOR ══════════ -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ══════════ HEADER / NAV ══════════ -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo" aria-label="Home">
+                    Devam<span class="logo-dot">.</span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../index.html#about">About</a></li>
+                    <li><a href="../index.html#experience">Experience</a></li>
+                    <li><a href="../index.html#projects" class="active">Projects</a></li>
+                    <li><a href="../index.html#skills">Skills</a></li>
+                </ul>
+
+                <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- ══════════ PROJECTS ══════════ -->
+        <section id="projects">
+            <div class="container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                    <h2 class="section-title reveal" style="margin-bottom: 0;">
+                        <span class="title-number">04.</span> All Projects
+                    </h2>
+                    <a href="../index.html#projects" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.9rem;">&larr; Back to Home</a>
+                </div>
+
+                <div class="projects-grid" id="projects-container">
+
+                    <!-- Saheli -->
+                    <article class="project-card glass-card reveal">
+                        <div class="project-image-placeholder">
+                            <img src="../assets/projects/saheli/saheli-1.png" alt="Saheli Preview 1" class="card-carousel-img">
+                            <img src="../assets/projects/saheli/saheli-2.png" alt="Saheli Preview 2" class="card-carousel-img">
+                            <img src="../assets/projects/saheli/saheli-3.png" alt="Saheli Preview 3" class="card-carousel-img">
+                            <img src="../assets/projects/saheli/saheli-4.png" alt="Saheli Preview 4" class="card-carousel-img">
+                            <img src="../assets/projects/saheli/saheli-5.png" alt="Saheli Preview 5" class="card-carousel-img">
+                        </div>
+                        <div class="project-content">
+                            <span class="project-subtitle">Healthcare Platform</span>
+                            <h3>Saheli — Smart PCOS Care</h3>
+                            <p>AI-powered healthcare platform with patient, doctor, and admin portals. Built using MERN Stack, Gemini API, Python, and OpenCV.</p>
+                            <div class="project-tech-tags">
+                                <span>MERN Stack</span>
+                                <span>Gemini API</span>
+                                <span>Python</span>
+                                <span>OpenCV</span>
+                            </div>
+                            <a href="saheli.html" class="view-details-link">View Details &rarr;</a>
+                        </div>
+                    </article>
+
+                    <!-- Spot Wave -->
+                    <article class="project-card glass-card reveal">
+                        <div class="project-image-placeholder">
+                            <img src="../assets/projects/spotwave/spotwave-1.png" alt="Spot Wave Preview 1" class="card-carousel-img">
+                            <img src="../assets/projects/spotwave/spotwave-2.png" alt="Spot Wave Preview 2" class="card-carousel-img">
+                            <img src="../assets/projects/spotwave/spotwave-3.png" alt="Spot Wave Preview 3" class="card-carousel-img">
+                            <img src="../assets/projects/spotwave/spotwave-4.png" alt="Spot Wave Preview 4" class="card-carousel-img">
+                            <img src="../assets/projects/spotwave/spotwave-1.png" alt="Spot Wave Preview 5" class="card-carousel-img">
+                        </div>
+                        <div class="project-content">
+                            <span class="project-subtitle">Music Streaming</span>
+                            <h3>Spot Wave Music Player</h3>
+                            <p>Spotify-inspired music streaming application with playlist rendering, seek controls, volume control, and responsive UI.</p>
+                            <div class="project-tech-tags">
+                                <span>JavaScript (ES6+)</span>
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>Web Audio API</span>
+                            </div>
+                            <a href="spotwave.html" class="view-details-link">View Details &rarr;</a>
+                        </div>
+                    </article>
+
+                    <!-- StreamFlix -->
+                    <article class="project-card glass-card reveal">
+                        <div class="project-image-placeholder">
+                            <img src="../assets/projects/streamflix/streamflix-1.png" alt="StreamFlix Preview 1" class="card-carousel-img">
+                            <img src="../assets/projects/streamflix/streamflix-2.png" alt="StreamFlix Preview 2" class="card-carousel-img">
+                            <img src="../assets/projects/streamflix/streamflix-3.png" alt="StreamFlix Preview 3" class="card-carousel-img">
+                            <img src="../assets/projects/streamflix/streamflix-4.png" alt="StreamFlix Preview 4" class="card-carousel-img">
+                            <img src="../assets/projects/streamflix/streamflix-1.png" alt="StreamFlix Preview 5" class="card-carousel-img">
+                        </div>
+                        <div class="project-content">
+                            <span class="project-subtitle">Multi-Page Portal</span>
+                            <h3>StreamFlix UI</h3>
+                            <p>Netflix-inspired responsive streaming platform featuring Login, Home, Support, and Privacy pages utilizing modern layouts.</p>
+                            <div class="project-tech-tags">
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                                <span>Responsive Design</span>
+                                <span>Flexbox</span>
+                                <span>CSS Grid</span>
+                            </div>
+                            <a href="streamflix.html" class="view-details-link">View Details &rarr;</a>
+                        </div>
+                    </article>
+
+                    <!-- Screener -->
+                    <article class="project-card glass-card reveal">
+                        <div class="project-image-placeholder">
+                            <img src="../assets/projects/stock/stock-1.png" alt="Screener Preview 1" class="card-carousel-img">
+                            <img src="../assets/projects/stock/stock-2.png" alt="Screener Preview 2" class="card-carousel-img">
+                            <img src="../assets/projects/stock/stock-3.png" alt="Screener Preview 3" class="card-carousel-img">
+                            <img src="../assets/projects/stock/stock-4.png" alt="Screener Preview 4" class="card-carousel-img">
+                            <img src="../assets/projects/stock/stock-1.png" alt="Screener Preview 5" class="card-carousel-img">
+                        </div>
+                        <div class="project-content">
+                            <span class="project-subtitle">Financial Terminal</span>
+                            <h3>Real-Time Stock Screener</h3>
+                            <p>A high-performance financial tracking platform utilizing high-frequency WebSocket integration, dynamic UI updates, and real-time interactive charting for market analysis.</p>
+                            <div class="project-tech-tags">
+                                <span>WebSockets</span>
+                                <span>Chart.js</span>
+                                <span>HTML5</span>
+                                <span>CSS3</span>
+                            </div>
+                            <a href="stock.html" class="view-details-link">View Details &rarr;</a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../js/particles.js"></script>
+    <script src="../js/cursor.js"></script>
+    <script src="../js/animations.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

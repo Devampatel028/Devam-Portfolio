@@ -1,0 +1,226 @@
+/* ═══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ═══════════════════════════════════════════ */
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: var(--space-2xl);
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .hero-stats {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .skills-categories {
+        flex-direction: column;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .achievement-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .certificates-grid {
+        grid-template-columns: 1fr;
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    .contact-layout {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .contact-socials {
+        justify-content: center;
+    }
+
+    .floating-badge {
+        display: none;
+    }
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    :root {
+        --container-padding: 6%;
+    }
+
+    section {
+        padding: var(--space-3xl) 0;
+    }
+
+    .section-title {
+        font-size: var(--fs-2xl);
+    }
+
+    /* Mobile nav */
+    .menu-btn {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 320px;
+        height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        background: var(--bg-secondary);
+        border-left: 1px solid var(--border-subtle);
+        padding: var(--space-2xl);
+        gap: var(--space-lg);
+        transition: right var(--duration-slow) var(--ease-out);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: var(--fs-lg);
+    }
+
+    /* Mobile overlay */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--duration-normal) var(--ease-out);
+    }
+
+    .nav-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* Hero mobile */
+    .hero-name {
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+    }
+
+    .hero-stats {
+        gap: var(--space-xl);
+    }
+
+    .stat-number,
+    .stat-plus {
+        font-size: var(--fs-xl);
+    }
+
+    .hero-card {
+        padding: var(--space-lg);
+    }
+
+    .code-block {
+        font-size: var(--fs-xs);
+    }
+
+    /* Hide custom cursor on touch devices */
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* ── Small Mobile ── */
+@media (max-width: 480px) {
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-md);
+    }
+
+    .stat-item {
+        align-items: center;
+    }
+
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .contact-socials {
+        flex-wrap: wrap;
+    }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+
+    .floating-badge {
+        animation: none;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
