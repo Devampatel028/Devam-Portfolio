@@ -4,7 +4,7 @@ Welcome to my personal portfolio repository! This portfolio showcases my project
 
 ## 🌐 Live Portfolio
 
-👉 **Portfolio:** [https://your-portfolio-link.vercel.app/](https://devampatel028.github.io/Devam-Portfolio/)
+👉 **Portfolio:** [Live](https://devampatel028.github.io/Devam-Portfolio/)
 
 ## 📌 About Me
 
